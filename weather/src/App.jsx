@@ -3,6 +3,7 @@ import { useState } from "react";
 import WeatherApp from "./Components/Weather";
 // import Home from "./pages/Home";
 import './App.css';
+import Prajwal from "./Components/prajwal";
 
 function App() {
   const [activeApps, setActiveApps] = useState({
@@ -48,7 +49,7 @@ function App() {
             
              
             </div>
-            {/* <Home /> */}
+            <Prajwal />
           </div>
         )}
       </div>
