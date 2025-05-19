@@ -34,7 +34,7 @@ const Prajwal = () => {
   };
 
   return (
-    <div className="bg-green-100 min-h-screen flex items-center justify-center">
+    <div className=" min-h-screen flex items-center justify-center">
       <div className="bg-white shadow-lg mt-10 p-4 rounded w-full max-w-sm">
         <div className="flex">
           <div className="flex border rounded items-center px-2 py-2 w-full">
