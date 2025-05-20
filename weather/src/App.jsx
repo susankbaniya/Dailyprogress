@@ -4,8 +4,11 @@ import WeatherApp from "./Components/Weather";
 // import Home from "./pages/Home";
 import './App.css';
 import Prajwal from "./Components/Prajwal";
+import { ThemeProvider } from './CustomHooks/ThemeContext';
+
 
 function App() {
+  
   const [activeApps, setActiveApps] = useState({
     susank: false,
     prajwal: false,
@@ -19,6 +22,7 @@ function App() {
   };
 
   return (
+    <ThemeProvider>
     <div className="app-container">
       <div className="header">
         <h1 className="title">Weather Apps Collection</h1>
@@ -60,6 +64,7 @@ function App() {
         </div>
       )}
     </div>
+    </ThemeProvider>
   );
 }
 

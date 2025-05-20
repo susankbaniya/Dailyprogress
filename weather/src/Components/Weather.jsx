@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Weather.css';
 import { handlekeypress } from '../Utils/handlekeypresss';
 import useGet from '../CustomHooks/UseGet';
+import { useTheme } from '../CustomHooks/ThemeContext';
 import {
   getEmptyCityError,
   getCityNotFoundError,
@@ -19,6 +20,7 @@ const Weather = () => {
   const [errorMsg, setErrorMsg] = useState('');
 
   const { get, error } = useGet(); 
+  const { theme, toggleTheme } = useTheme()
 
   const fetchWeather = async () => {
     if (!city.trim()) {
@@ -59,8 +61,13 @@ const Weather = () => {
   };
 
   return (
-    <div className="Weather">
-      <div className="Weatherwrapper">
+    <div
+   className="Weather"
+    >
+      <div className="Weatherwrapper" style={{
+  backgroundColor: theme === 'light' ? '#fff' : '#1a1a1a',
+  color: theme === 'light' ? '#000' : '#fff',
+}} >
         <div className="h1div">
           <h1>Weather App</h1>
         </div>
@@ -74,6 +81,7 @@ const Weather = () => {
             onKeyDown={(e) => handlekeypress(e, fetchWeather)}
           />
           <button onClick={fetchWeather}>Search</button>
+          <button onClick={toggleTheme}>Toggle Theme</button> {/* Add theme toggle */}
         </div>
 
         {errorMsg && <p className="error">{errorMsg}</p>}
