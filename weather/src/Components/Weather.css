@@ -34,7 +34,7 @@ h1{
     font-size:50px;
     font-weight:700;
 }
-input{
+.inputfield{
     
     width:300px;
     height:60px;
@@ -43,9 +43,10 @@ outline:none;
 border:1px  gray;
 font-size:24px;
       border-radius:40px;
+      border:1px solid gray;
 }
 /* Weather.css */
-input:hover {
+.inputfield:hover {
   border: 1px solid green;
 
 }

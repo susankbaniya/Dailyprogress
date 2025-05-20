@@ -1,60 +1,59 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
+import useGet from './UseGet'; 
 import {
   getEmptyCityError,
   getCityNotFoundError,
   getApiError,
   getHourlyError
 } from '../Utils/errorUtils';
- const apiKey = '5469227a3914b20e27b9c0e78c601adf';
+
+const apiKey = '5469227a3914b20e27b9c0e78c601adf';
+
 const UseWeather = () => {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
   const [hourlyForecast, setHourlyForecast] = useState([]);
   const [error, setError] = useState('');
 
+  const { get } = useGet(); // custom GET hook
 
   const fetchWeather = async () => {
     if (!city.trim()) {
-      alert(getEmptyCityError());
-      setError(getEmptyCityError());
-      console.log("Error: Please write the city");
+      const err = getEmptyCityError();
+      alert(err);
+      setError(err);
       return;
     }
 
     try {
-      const weatherResponse = await axios.get(
+      const weatherData = await get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city.trim()}&appid=${apiKey}`
       );
-      console.log(weatherResponse.data);
-      setWeather(weatherResponse.data);
+      setWeather(weatherData);
       setError('');
 
       try {
-        const forecastResponse = await axios.get(
+        const forecastData = await get(
           `https://api.openweathermap.org/data/2.5/forecast?q=${city.trim()}&appid=${apiKey}`
         );
-        const hourlyData = forecastResponse.data.list.slice(0, 8);
-        console.log(forecastResponse.data);
+        const hourlyData = forecastData.list.slice(0, 8);
         setHourlyForecast(hourlyData);
       } catch (forecastErr) {
-        console.error('Error fetching hourly forecast:', forecastErr);
+        console.error('Forecast fetch error:', forecastErr);
         setError(getHourlyError());
         setHourlyForecast([]);
       }
     } catch (err) {
-      console.error('Error fetching weather data:', err);
-      setError(getApiError());
-      setError(getCityNotFoundError());
+      console.error('Weather fetch error:', err);
+      if (err?.response?.status === 404) {
+        setError(getCityNotFoundError());
+      } else {
+        setError(getApiError());
+      }
       setWeather(null);
       setHourlyForecast([]);
     }
   };
-
-
-
-
-
 
   return {
     city,
@@ -63,7 +62,6 @@ const UseWeather = () => {
     hourlyForecast,
     error,
     fetchWeather,
-    
   };
 };
 

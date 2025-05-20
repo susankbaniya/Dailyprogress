@@ -36,6 +36,8 @@ body{
 .app-card{
   display:flex;
   justify-content:center ;
+  flex-direction:column;
+  margin-bottom:30px;
 }
 .app-header{
   display:flex;

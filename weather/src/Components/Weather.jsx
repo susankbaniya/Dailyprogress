@@ -1,19 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Weather.css';
 import { handlekeypress } from '../Utils/handlekeypresss';
-import useWeather from '../CustomHooks/UseWeather';
+import useGet from '../CustomHooks/UseGet';
+import {
+  getEmptyCityError,
+  getCityNotFoundError,
+  getApiError,
+  getHourlyError,
+} from '../Utils/errorUtils';
 import { kelvinToCelsius } from '../Utils/temprature';
+
 const Weather = () => {
   const apiKey = '5469227a3914b20e27b9c0e78c601adf';
-  const {
-    city,
-    setCity,
-    weather,
-    hourlyForecast,
-    error,
-    fetchWeather,
-  
-  } = useWeather(apiKey);
+
+  const [city, setCity] = useState('');
+  const [weather, setWeather] = useState(null);
+  const [hourlyForecast, setHourlyForecast] = useState([]);
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const { get, error } = useGet(); 
+
+  const fetchWeather = async () => {
+    if (!city.trim()) {
+      const err = getEmptyCityError();
+      alert(err);
+      setErrorMsg(err);
+      return;
+    }
+
+    try {
+      const weatherData = await get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city.trim()}&appid=${apiKey}`
+      );
+      setWeather(weatherData);
+      setErrorMsg('');
+
+      try {
+        const forecastData = await get(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city.trim()}&appid=${apiKey}`
+        );
+        const hourlyData = forecastData.list.slice(0, 8);
+        setHourlyForecast(hourlyData);
+      } catch (forecastErr) {
+        console.error('Forecast error:', forecastErr);
+        setErrorMsg(getHourlyError());
+        setHourlyForecast([]);
+      }
+    } catch (err) {
+      console.error('Weather error:', err);
+      if (err?.response?.status === 404) {
+        setErrorMsg(getCityNotFoundError());
+      } else {
+        setErrorMsg(getApiError());
+      }
+      setWeather(null);
+      setHourlyForecast([]);
+    }
+  };
 
   return (
     <div className="Weather">
@@ -25,14 +68,16 @@ const Weather = () => {
           <input
             type="text"
             placeholder="Search here..."
-            className="input"
+            className="inputfield"
             value={city}
             onChange={(e) => setCity(e.target.value)}
-             onKeyDown={(e)=>handlekeypress(e,fetchWeather)}
+            onKeyDown={(e) => handlekeypress(e, fetchWeather)}
           />
           <button onClick={fetchWeather}>Search</button>
         </div>
-        {error && <p className="error">{error}</p>}
+
+        {errorMsg && <p className="error">{errorMsg}</p>}
+
         {weather && (
           <div className="weather-info">
             <p>City: {weather.name}</p>
@@ -50,6 +95,7 @@ const Weather = () => {
             />
           </div>
         )}
+
         {hourlyForecast.length > 0 && (
           <div className="hourly-forecast">
             <h2>Hourly Forecast (Next 24 Hours)</h2>
