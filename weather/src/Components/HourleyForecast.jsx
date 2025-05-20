@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-// import "../styles/HourlyForecast.css"; // If needed
+// import "../styles/HourlyForecast.css"; // 
 
 const HourlyForecast = ({ hourlyData }) => {
   const scrollRef = useRef(null);
