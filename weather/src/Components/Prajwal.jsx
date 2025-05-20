@@ -39,7 +39,7 @@ const Prajwal = () => {
         <div className=" bg-white shadow-lg mt-10 p-4 rounded w-full max-w-sm">
           <div className=" flex">
             <div className="flex border rounded items-center px-2 py-2 w-full">
-              <FaSearch className="h-5 w-5" />
+              <FaSearch   className="h-5 w-5 new" />
               <input
                 type="text"
                 placeholder="Enter the City Name"
