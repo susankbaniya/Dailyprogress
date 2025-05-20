@@ -7,7 +7,7 @@ const usePost = () => {
 
   const post = async (url, data = {}, config = {}) => {
     try {
-      const response = await axios.post(url, data, config);
+      const response    = await axios.post(url, data, config);
       setError(null); 
       return response.data;
     } catch (err) {
