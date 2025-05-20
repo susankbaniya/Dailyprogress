@@ -12,6 +12,7 @@ const Prajwal = () => {
   const [error, setError] = useState("");
 
   //fetch data from the API
+  //change
   const fetchData = async (query) => {
     const { data, error } = await useGet(WEATHER_API_URL, {
       key: WEATHER_API_KEY,
