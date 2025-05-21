@@ -4,7 +4,7 @@
     justify-content: space-around;
 
     width:100%;
-    
+       
     
 }
 body{
@@ -23,7 +23,7 @@ height:auto;
 
 
 margin-top:100px;
-background-color:bisque;
+
 padding-bottom: 20px;
 }
 
@@ -82,7 +82,7 @@ background-color:rgb(72, 111, 72);
     align-items:center;flex-direction: column;
 justify-content: center;
 font-size:20px;
-color:black;
+
 gap:5px;
 }
 .hourly-forecast{
@@ -111,4 +111,32 @@ height:auto;
 .hourly-forecast h2{
     font-size:25px;
     font-weight:700;
+}
+.Weatherwrapper {
+
+    
+
+}
+
+
+.Weatherwrapper.light p {
+  color: #000;
+}
+
+.Weatherwrapper.light  {
+  color:black;
+}
+.Weatherwrapper.dark  {
+  color:white;
+}
+.Weatherwrapper.dark p {
+  color: #fff;
+}
+
+.Weatherwrapper.light .error {
+  color: #ff0000;
+}
+
+.Weatherwrapper.dark .error {
+  color: #fff;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Weather.css';
 import { handlekeypress } from '../Utils/handlekeypresss';
 import useGet from '../CustomHooks/UseGet';
@@ -10,23 +10,21 @@ import {
   getHourlyError,
 } from '../Utils/errorUtils';
 import { kelvinToCelsius } from '../Utils/temprature';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCity, setWeather, setHourlyForecast, setErrorMsg } from "../Redux/weatherSlice"; 
 
 const Weather = () => {
   const apiKey = '5469227a3914b20e27b9c0e78c601adf';
-
-  const [city, setCity] = useState('');
-  const [weather, setWeather] = useState(null);
-  const [hourlyForecast, setHourlyForecast] = useState([]);
-  const [errorMsg, setErrorMsg] = useState('');
-
-  const { get, error } = useGet(); 
-  const { theme, toggleTheme } = useTheme()
+  const { get, error } = useGet();
+  const { theme, toggleTheme } = useTheme();
+  const dispatch = useDispatch();
+  const { city, weather, hourlyForecast, errorMsg } = useSelector((state) => state.weather);
 
   const fetchWeather = async () => {
     if (!city.trim()) {
       const err = getEmptyCityError();
       alert(err);
-      setErrorMsg(err);
+      dispatch(setErrorMsg(err));
       return;
     }
 
@@ -34,40 +32,36 @@ const Weather = () => {
       const weatherData = await get(
         `https://api.openweathermap.org/data/2.5/weather?q=${city.trim()}&appid=${apiKey}`
       );
-      setWeather(weatherData);
-      setErrorMsg('');
+      dispatch(setWeather(weatherData));
 
       try {
         const forecastData = await get(
           `https://api.openweathermap.org/data/2.5/forecast?q=${city.trim()}&appid=${apiKey}`
         );
         const hourlyData = forecastData.list.slice(0, 8);
-        setHourlyForecast(hourlyData);
+        dispatch(setHourlyForecast(hourlyData));
       } catch (forecastErr) {
         console.error('Forecast error:', forecastErr);
-        setErrorMsg(getHourlyError());
-        setHourlyForecast([]);
+        dispatch(setErrorMsg(getHourlyError()));
       }
     } catch (err) {
       console.error('Weather error:', err);
       if (err?.response?.status === 404) {
-        setErrorMsg(getCityNotFoundError());
+        dispatch(setErrorMsg(getCityNotFoundError()));
       } else {
-        setErrorMsg(getApiError());
+        dispatch(setErrorMsg(getApiError()));
       }
-      setWeather(null);
-      setHourlyForecast([]);
     }
   };
 
   return (
-    <div
-   className="Weather"
-    >
-      <div className="Weatherwrapper" style={{
-  backgroundColor: theme === 'light' ? '#fff' : '#1a1a1a',
-  color: theme === 'light' ? '#000' : '#fff',
-}} >
+    <div className="Weather">
+      <div
+        className={`Weatherwrapper ${theme}`} 
+        style={{
+          backgroundColor: theme === 'light' ? '#fff' : '#1a1a1a',
+        }}
+      >
         <div className="h1div">
           <h1>Weather App</h1>
         </div>
@@ -77,11 +71,11 @@ const Weather = () => {
             placeholder="Search here..."
             className="inputfield"
             value={city}
-            onChange={(e) => setCity(e.target.value)}
+            onChange={(e) => dispatch(setCity(e.target.value))}
             onKeyDown={(e) => handlekeypress(e, fetchWeather)}
           />
           <button onClick={fetchWeather}>Search</button>
-          <button onClick={toggleTheme}>Toggle Theme</button> {/* Add theme toggle */}
+          <button onClick={toggleTheme}>Toggle Theme</button>
         </div>
 
         {errorMsg && <p className="error">{errorMsg}</p>}
