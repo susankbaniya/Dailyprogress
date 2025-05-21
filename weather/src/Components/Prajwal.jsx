@@ -1,51 +1,66 @@
 import React, { useState } from "react";
 import { FaMapMarkedAlt, FaSearch } from "react-icons/fa";
 import HourlyForecast from "./HourleyForecast";
-import { WEATHER_API_KEY, WEATHER_API_URL } from "../constants/api";
-import { useGet } from "../hooks/useGet";
+import { useDispatch, useSelector } from "react-redux";
+// import { WEATHER_API_KEY, WEATHER_API_URL } from "../constants/api";
+// import { useGet } from "../hooks/useGet";
 import { getCurrentLocation } from "../Utils/location";
-import { handleKeyPress } from "../Utils/keypress";
+import { handleKeyPress } from "../Utils/keypress"; //Remove the handlekeyPress utility function coz key handling is now inline
+import { fetchWeather, setError } from "../features/weatherSlice";
 
 const Prajwal = () => {
-  const [weatherData, setWeatherData] = useState(null);
+  // const [weatherData, setWeatherData] = useState(null);
   const [city, setCity] = useState("");
-  const [error, setError] = useState("");
+  const dispatch = useDispatch();
+  // const [error, setError] = useState("");
+  const { weatherData, error } = useSelector((state) => state.weather);
 
   //fetch data from the API
-  const fetchData = async (query) => {
-    const { data, error } = await useGet(WEATHER_API_URL, {
-      key: WEATHER_API_KEY,
-      q: query,
-      days: 1,
-    });
+  //change
+  // const fetchData = async (query) => {
+  //   const { data, error } = await useGet(WEATHER_API_URL, {
+  //     key: WEATHER_API_KEY,
+  //     q: query,
+  //     days: 1,
+  //   });
 
-    if (data) {
-      setWeatherData(data);
-      setError("");
-    } else {
-      setWeatherData(null);
-      setError("There was an error or the city was not found.");
-    }
-  };
+  //   if (data) {
+  //     setWeatherData(data);
+  //     setError("");
+  //   } else {
+  //     setWeatherData(null);
+  //     setError("There was an error or the city was not found.");
+  //   }
+  // };
 
   //fetches weather data
-  const handleLocationClick = () => {
-    getCurrentLocation(fetchData, setError);
-  };
+  // const handleLocationClick = () => {
+  //   getCurrentLocation(fetchData, setError);
+  // };
 
+  const handleLocationClick = () => {
+    getCurrentLocation(
+      (query) => dispatch(fetchWeather(query)),
+      (errorMessage) => dispatch(setError(errorMessage))
+    );
+  };
   return (
     <>
       <div className="w-full bg-green-100 min-h-screen flex items-center justify-center">
         <div className=" bg-white shadow-lg mt-10 p-4 rounded w-full max-w-sm">
           <div className=" flex">
             <div className="flex border rounded items-center px-2 py-2 w-full">
-              <FaSearch className="h-5 w-5" />
+              <FaSearch className="h-5 w-5 new" />
               <input
                 type="text"
                 placeholder="Enter the City Name"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                onKeyUp={(e) => handleKeyPress(e, city, fetchData)}
+                onKeyUp={(e) => {
+                  if (e.key === "Enter" && city.trim() !== "") {
+                    dispatch(fetchWeather(city.trim()));
+                  }
+                }}
                 className=" pl-2 border-none focus:outline-none w-full"
               />
             </div>
