@@ -59,7 +59,7 @@ const Weather = () => {
       <div
         className={`Weatherwrapper ${theme}`} 
         style={{
-          backgroundColor: theme === 'light' ? '#fff' : '#1a1a1a',
+          backgroundColor: theme === 'light' ? 'dark' : 'light',
         }}
       >
         <div className="h1div">

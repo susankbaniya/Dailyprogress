@@ -112,31 +112,17 @@ height:auto;
     font-size:25px;
     font-weight:700;
 }
-.Weatherwrapper {
 
-    
 
+.light{
+    color:black;
+background: #fff;
+   
 }
 
 
-.Weatherwrapper.light p {
-  color: #000;
-}
 
-.Weatherwrapper.light  {
-  color:black;
-}
-.Weatherwrapper.dark  {
-  color:white;
-}
-.Weatherwrapper.dark p {
-  color: #fff;
-}
-
-.Weatherwrapper.light .error {
-  color: #ff0000;
-}
-
-.Weatherwrapper.dark .error {
-  color: #fff;
+.dark{
+    background: #1a1a1a;
+    color:white;
 }
