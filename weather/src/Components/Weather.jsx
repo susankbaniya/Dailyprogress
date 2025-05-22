@@ -3,6 +3,8 @@ import './Weather.css';
 import { handlekeypress } from '../Utils/handlekeypresss';
 import useGet from '../CustomHooks/UseGet';
 import { useTheme } from '../CustomHooks/ThemeContext';
+import { FaSearch } from 'react-icons/fa';
+
 import {
   getEmptyCityError,
   getCityNotFoundError,
@@ -12,7 +14,7 @@ import {
 import { kelvinToCelsius } from '../Utils/temprature';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCity, setWeather, setHourlyForecast, setErrorMsg } from "../Redux/weatherSlice"; 
-
+import { FaToggleOn } from 'react-icons/fa';
 const Weather = () => {
   const apiKey = '5469227a3914b20e27b9c0e78c601adf';
   const { get, error } = useGet();
@@ -74,8 +76,8 @@ const Weather = () => {
             onChange={(e) => dispatch(setCity(e.target.value))}
             onKeyDown={(e) => handlekeypress(e, fetchWeather)}
           />
-          <button onClick={fetchWeather}>Search</button>
-          <button onClick={toggleTheme}>Toggle Theme</button>
+          <button className="fasearch" onClick={fetchWeather}><FaSearch className="fasearch1"/></button>
+       
         </div>
 
         {errorMsg && <p className="error">{errorMsg}</p>}

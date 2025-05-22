@@ -1,15 +1,17 @@
 .Weather{
     display:flex;
     align-items:center;
-    justify-content: space-around;
-
+    justify-content: start;
+position:absolute;
     width:100%;
        
+  transform: translateY(120px);
     
 }
 body{
         background-color:rgb(0, 0, 0);
   height:100vh;
+  position:relative;
 }
 .h1div{
     display:flex;
@@ -125,4 +127,15 @@ background: #fff;
 .dark{
     background: #1a1a1a;
     color:white;
+}
+.fasearch{
+    font-size:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+width:60px;
+background:green;
+}
+.fasearch1{
+background:green;
 }
