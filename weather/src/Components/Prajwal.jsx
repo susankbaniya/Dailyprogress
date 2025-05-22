@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { WEATHER_API_KEY, WEATHER_API_URL } from "../constants/api";
 // import { useGet } from "../hooks/useGet";
 import { getCurrentLocation } from "../Utils/location";
-import { handleKeyPress } from "../Utils/keypress"; //Remove the handlekeyPress utility function coz key handling is now inline
+// import { handleKeyPress } from "../Utils/keypress"; //Remove the handlekeyPress utility function coz key handling is now inline
 import { fetchWeather, setError } from "../features/weatherSlice";
 
 const Prajwal = () => {
@@ -46,7 +46,7 @@ const Prajwal = () => {
   };
   return (
     <>
-      <div className="w-full bg-green-100 min-h-screen flex items-center justify-center">
+      <div className=" bg-green-100 min-h-screen flex items-center justify-center">
         <div className=" bg-white shadow-lg mt-10 p-4 rounded w-full max-w-sm">
           <div className=" flex">
             <div className="flex border rounded items-center px-2 py-2 w-full">
@@ -102,3 +102,5 @@ const Prajwal = () => {
 };
 
 export default Prajwal;
+
+

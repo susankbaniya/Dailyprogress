@@ -17,8 +17,9 @@ import {
   setHourlyForecast,
   setErrorMsg,
 } from "../Redux/weatherSlice";
+import { FaSearch } from "react-icons/fa";
 
-const Weather = ({ onToggle }) => {
+const front = ({ onToggle }) => {
   const apiKey = "5469227a3914b20e27b9c0e78c601adf";
   const { get, error } = useGet();
   const { theme, toggleTheme } = useTheme();
@@ -63,10 +64,10 @@ const Weather = ({ onToggle }) => {
 
   return (
     <div
-      className="flex-col overflow-auto"
+      className="flex-col"
       style={{
-        backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
-        color: theme === "light" ? "#333" : "white",
+        backgroundColor: theme === "dark" ? "#333" : "#f0f0f0",
+        color: theme === "dark" ? "white" : "#333",
         height: "100vh",
         width: "100vw",
         display: "flex",
@@ -80,7 +81,7 @@ const Weather = ({ onToggle }) => {
           toggleTheme();
         }}
       >
-        Sasank
+        Prajwal
       </button>
 
       <div className="Weather">
@@ -91,9 +92,9 @@ const Weather = ({ onToggle }) => {
           }}
         >
           <div className="h1div">
-            <h1>S-Weather App</h1>
+            <h1>P-Weather App</h1>
           </div>
-          <div className="inputbox">
+          <div className="inputbox relative w-full flex justify-center items-center  h-20">
             <input
               type="text"
               placeholder="Search here..."
@@ -102,31 +103,45 @@ const Weather = ({ onToggle }) => {
               onChange={(e) => dispatch(setCity(e.target.value))}
               onKeyDown={(e) => handlekeypress(e, fetchWeather)}
             />
-            <button onClick={fetchWeather}>Search</button>
-            <button onClick={toggleTheme}>Toggle Theme</button>
+            <button
+              className="absolute right-1  text-gray-500"
+              onClick={fetchWeather}
+            >
+              <FaSearch size={14} className="w-full  h-10 " />
+            </button>
+            {/* <button onClick={toggleTheme}>Toggle Theme</button> */}
           </div>
 
           {errorMsg && <p className="error">{errorMsg}</p>}
 
           {weather && (
-            <div className="weather-info">
-              <p>City: {weather.name}</p>
-              <p>Country: {weather.sys.country}</p>
-              <img
-                src={`https://flagcdn.com/48x36/${weather.sys.country.toLowerCase()}.png`}
-                alt="Country Flag"
-              />
-              <p>Temperature: {kelvinToCelsius(weather.main.temp)} °C</p>
-              <p>Wind Speed: {weather.wind.speed} m/s</p>
-              <p>Description: {weather.weather[0].description}</p>
-              <img
-                src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                alt="Weather Icon"
-              />
+            <div className="text-center">
+              <div className="flex justify-center items-center gap-1">
+                <h2 className="text-lg font-semibold">{weather.name}</h2>
+                <img
+                  src={`https://flagcdn.com/24x18/${weather.sys.country.toLowerCase()}.png`}
+                  alt="flag"
+                  className="w-6 h-4 object-cover rounded"
+                />
+              </div>
+              <div className="flex justify-center items-center">
+                <img
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
+                  alt="weather-icon"
+                  className="mx-auto w-24 h-24"
+                />
+              </div>
+
+              <p className="text-3xl font-bold mt-2">
+                {kelvinToCelsius(weather.main.temp)}°
+              </p>
+              <p className="capitalize text-gray-500">
+                {weather.weather[0].description}
+              </p>
             </div>
           )}
 
-          {hourlyForecast.length > 0 && (
+          {/* {hourlyForecast.length > 0 && (
             <div className="hourly-forecast">
               <h2>Hourly Forecast (Next 24 Hours)</h2>
               <div className="hourly-list">
@@ -148,11 +163,11 @@ const Weather = ({ onToggle }) => {
                 ))}
               </div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>
   );
 };
 
-export default Weather;
+export default front;
