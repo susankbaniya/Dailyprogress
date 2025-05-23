@@ -1,5 +1,4 @@
 import React from "react";
-import "./Weather.css";
 import { handlekeypress } from "../Utils/handlekeypresss";
 import useGet from "../CustomHooks/UseGet";
 import { useTheme } from "../CustomHooks/ThemeContext";
@@ -18,6 +17,7 @@ import {
   setErrorMsg,
 } from "../Redux/weatherSlice";
 import { FaSearch } from "react-icons/fa";
+import Toggleapp from "./ToogleApp/Toggleapp";
 
 const front = ({ onToggle }) => {
   const apiKey = "5469227a3914b20e27b9c0e78c601adf";
@@ -81,7 +81,7 @@ const front = ({ onToggle }) => {
           toggleTheme();
         }}
       >
-        Prajwal
+        <Toggleapp />
       </button>
 
       <div className="Weather">

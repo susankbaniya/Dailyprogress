@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import WeatherApp from './Components/Weather';
+import WeatherApp from './Components/Weather/Weather.jsx';
 import Front from './Components/front.jsx';
 import Prajwal from './Components/Prajwal';
 import { ThemeProvider } from './CustomHooks/ThemeContext';
 import './App.css';
 import { Provider } from 'react-redux';
 import { store } from './Redux/store.jsx'; 
-
+import "./Theme.css";
+import Toggleapp from './Components/ToogleApp/Toggleapp.jsx';
 function App() {
   // const [activeApps, setActiveApps] = useState({
   //   susank: false,
@@ -72,6 +73,7 @@ function App() {
           <WeatherApp onToggle={() => setIsFirstVisible(true)} />
         )}
       </ThemeProvider>
+   
     </Provider>
   );
 }
