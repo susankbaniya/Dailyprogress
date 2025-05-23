@@ -17,6 +17,7 @@ import {
   setHourlyForecast,
   setErrorMsg,
 } from "../Redux/weatherSlice";
+import ToggleSwitch from "./common/ToggleSwitch";
 
 const Weather = ({ onToggle }) => {
   const apiKey = "5469227a3914b20e27b9c0e78c601adf";
@@ -62,96 +63,102 @@ const Weather = ({ onToggle }) => {
   };
 
   return (
-    <div
-      className="flex-col overflow-auto"
-      style={{
-        backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
-        color: theme === "light" ? "#333" : "white",
-        height: "100vh",
-        width: "100vw",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <button
-        onClick={() => {
-          onToggle();
-          toggleTheme();
+    
+      <div
+        className="flex flex-col relative"
+        style={{
+          backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
+          color: theme === "light" ? "#333" : "white",
+          height: "100vh",
+          width: "100vw",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          paddingTop: "3rem",
         }}
       >
-        Sasank
-      </button>
+        {/* <ToggleSwitch isChecked={theme === "light"} onToggle={toggleTheme} /> */}
+        <div className="absolute top-20 right-150 z-50">
 
-      <div className="Weather">
-        <div
-          className={`Weatherwrapper ${theme}`}
-          style={{
-            backgroundColor: theme === "light" ? "dark" : "light",
+        <ToggleSwitch
+          isChecked={theme === "light"}
+          onToggle={() => {
+            toggleTheme();
+            onToggle();
           }}
-        >
-          <div className="h1div">
-            <h1>S-Weather App</h1>
-          </div>
-          <div className="inputbox">
-            <input
-              type="text"
-              placeholder="Search here..."
-              className="inputfield"
-              value={city}
-              onChange={(e) => dispatch(setCity(e.target.value))}
-              onKeyDown={(e) => handlekeypress(e, fetchWeather)}
-            />
-            <button onClick={fetchWeather}>Search</button>
-            <button onClick={toggleTheme}>Toggle Theme</button>
+          />
           </div>
 
-          {errorMsg && <p className="error">{errorMsg}</p>}
-
-          {weather && (
-            <div className="weather-info">
-              <p>City: {weather.name}</p>
-              <p>Country: {weather.sys.country}</p>
-              <img
-                src={`https://flagcdn.com/48x36/${weather.sys.country.toLowerCase()}.png`}
-                alt="Country Flag"
-              />
-              <p>Temperature: {kelvinToCelsius(weather.main.temp)} °C</p>
-              <p>Wind Speed: {weather.wind.speed} m/s</p>
-              <p>Description: {weather.weather[0].description}</p>
-              <img
-                src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-                alt="Weather Icon"
-              />
+        <div className="Weather absolute top-60">
+          <div
+            className={`Weatherwrapper ${theme}`}
+            style={{
+              backgroundColor: theme === "light" ? "dark" : "light",
+            }}
+          >
+            <div className="h1div">
+              <h1>S-Weather App</h1>
             </div>
-          )}
+            <div className="inputbox">
+              <input
+                type="text"
+                placeholder="Search here..."
+                className="inputfield"
+                value={city}
+                onChange={(e) => dispatch(setCity(e.target.value))}
+                onKeyDown={(e) => handlekeypress(e, fetchWeather)}
+              />
+              <button onClick={fetchWeather}>Search</button>
+              {/* <button onClick={toggleTheme}>Toggle Theme</button> */}
+            </div>
 
-          {hourlyForecast.length > 0 && (
-            <div className="hourly-forecast">
-              <h2>Hourly Forecast (Next 24 Hours)</h2>
-              <div className="hourly-list">
-                {hourlyForecast.map((hour, index) => (
-                  <div key={index} className="hourly-item">
-                    <p>
-                      {new Date(hour.dt * 1000).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </p>
-                    <img
-                      src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}.png`}
-                      alt="Weather Icon"
-                    />
-                    <p>{kelvinToCelsius(hour.main.temp)} °C</p>
-                    <p>{hour.weather[0].description}</p>
-                  </div>
-                ))}
+            {errorMsg && <p className="error">{errorMsg}</p>}
+
+            {weather && (
+              <div className="weather-info">
+                <p>City: {weather.name}</p>
+                <p>Country: {weather.sys.country}</p>
+                <img
+                  src={`https://flagcdn.com/48x36/${weather.sys.country.toLowerCase()}.png`}
+                  alt="Country Flag"
+                />
+                <p>Temperature: {kelvinToCelsius(weather.main.temp)} °C</p>
+                <p>Wind Speed: {weather.wind.speed} m/s</p>
+                <p>Description: {weather.weather[0].description}</p>
+                <img
+                  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+                  alt="Weather Icon"
+                />
               </div>
-            </div>
-          )}
+            )}
+
+            {hourlyForecast.length > 0 && (
+              <div className="hourly-forecast">
+                <h2>Hourly Forecast (Next 24 Hours)</h2>
+                <div className="hourly-list">
+                  {hourlyForecast.map((hour, index) => (
+                    <div key={index} className="hourly-item">
+                      <p>
+                        {new Date(hour.dt * 1000).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </p>
+                      <img
+                        src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}.png`}
+                        alt="Weather Icon"
+                      />
+                      <p>{kelvinToCelsius(hour.main.temp)} °C</p>
+                      <p>{hour.weather[0].description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 
