@@ -19,7 +19,7 @@ import {
 import { FaSearch } from "react-icons/fa";
 import Toggleapp from "./ToogleApp/Toggleapp";
 
-const front = ({ onToggle }) => {
+const Front = ({ onToggle }) => {
   const apiKey = "5469227a3914b20e27b9c0e78c601adf";
   const { get, error } = useGet();
   const { theme, toggleTheme } = useTheme();
@@ -64,37 +64,33 @@ const front = ({ onToggle }) => {
 
   return (
     <div
-      className="flex-col"
+      className="flex "
       style={{
         backgroundColor: theme === "dark" ? "#333" : "#f0f0f0",
         color: theme === "dark" ? "white" : "#333",
-        height: "100vh",
+        // height: "100vh",
         width: "100vw",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <button
-        onClick={() => {
-          onToggle();
-          toggleTheme();
-        }}
-      >
-        <Toggleapp />
-      </button>
+        // marginTop:"800px",
+        paddingTop:"60px"
+        // display: "flex",
+        // alignItems: "center",
+        // justifyContent: "center",
+      }}>
 
-      <div className="Weather">
+      
+
+      <div className="Weather  ">
         <div
           className={`Weatherwrapper ${theme}`}
           style={{
             backgroundColor: theme === "light" ? "dark" : "light",
+            // height:"auto"
           }}
         >
           <div className="h1div">
             <h1>P-Weather App</h1>
           </div>
-          <div className="inputbox relative w-full flex justify-center items-center  h-20">
+          <div className="inputbox  w-full flex justify-center items-center  ">
             <input
               type="text"
               placeholder="Search here..."
@@ -104,7 +100,7 @@ const front = ({ onToggle }) => {
               onKeyDown={(e) => handlekeypress(e, fetchWeather)}
             />
             <button
-              className="absolute right-1  text-gray-500"
+              className=" right-1  text-gray-500"
               onClick={fetchWeather}
             >
               <FaSearch size={14} className="w-full  h-10 " />
@@ -115,7 +111,7 @@ const front = ({ onToggle }) => {
           {errorMsg && <p className="error">{errorMsg}</p>}
 
           {weather && (
-            <div className="text-center">
+            <div className="text-center h-auto">
               <div className="flex justify-center items-center gap-1">
                 <h2 className="text-lg font-semibold">{weather.name}</h2>
                 <img
@@ -170,4 +166,4 @@ const front = ({ onToggle }) => {
   );
 };
 
-export default front;
+export default Front;

@@ -64,29 +64,22 @@ const Weather = ({ onToggle }) => {
 
   return (
     <div
-      className="flex flex-col relative"
+      className="Weather"
       style={{
         backgroundColor: theme === "light" ? "#f0f0f0" : "#333",
         color: theme === "light" ? "#333" : "white",
-        height: "100vh",
-        width: "100vw",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        // height: "100vh",
+        // width: "100vw",
+        // display: "flex",
+        // alignItems: "center",
+        // justifyContent: "center",
       }}
     >
-              <div className="absolute top-15 right-170 z-40">
 
-      <button
-        onClick={() => {
-          onToggle();
-          toggleTheme();
-        }}
-        className="buttonfirst"
-      >
-        <Toggleapp/>
-      </button></div>
-  <div className="Weather absolute top-60">
+     
+     {/* <Toggleapp/> */}
+   
+  <div className="Weather">
           <div
             className={`Weatherwrapper ${theme}`}
             style={{

@@ -5,5 +5,6 @@ import weatherReducer from './weatherSlice';
 export const store = configureStore({
   reducer: {
     weather: weatherReducer,
+    
   },
 });

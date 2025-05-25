@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import WeatherApp from './Components/Weather/Weather.jsx';
-import Front from './Components/front.jsx';
+import Front from './Components/Front.jsx';
 import Prajwal from './Components/Prajwal';
 import { ThemeProvider } from './CustomHooks/ThemeContext';
 import './App.css';
@@ -67,13 +67,12 @@ function App() {
  return (
     <Provider store={store}>
       <ThemeProvider>
-        {isFirstVisible ? (
-          <Front onToggle={() => setIsFirstVisible(false)} />
-        ) : (
-          <WeatherApp onToggle={() => setIsFirstVisible(true)} />
-        )}
+
+
+  <Toggleapp/>
+  
       </ThemeProvider>
-   
+  
     </Provider>
   );
 }
