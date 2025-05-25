@@ -18,14 +18,12 @@ const Toggleapp = () => {
   return (
     <div
       className="Toggleapp"
-      style={{
-        background: theme === 'light' ? '#fff' : '#333',
-        color: theme === 'light' ? '#000' : '#fff',
-      }}
+     
     >
       <button
         className={`Tooglebutton ${toggled ? 'toggled' : ''}`}
         onClick={handleToggle}
+        style={{ display: 'block' }}
       >
         <div className="thumb"></div>
       </button>

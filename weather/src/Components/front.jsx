@@ -68,13 +68,15 @@ const Front = ({ onToggle }) => {
       style={{
         backgroundColor: theme === "dark" ? "#333" : "#f0f0f0",
         color: theme === "dark" ? "white" : "#333",
+      //  paddingBottom:"30px",
         // height: "100vh",
-        width: "100vw",
-        // marginTop:"800px",
-        paddingTop:"60px"
+        // width: "100vw",
+        // marginTop:"1000px",
+        // paddingTop:"60px"
         // display: "flex",
         // alignItems: "center",
         // justifyContent: "center",
+        // padding:"20px";
       }}>
 
       
