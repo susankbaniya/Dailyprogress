@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import WeatherApp from './Components/Weather';
 import Front from './Components/front.jsx';
-import Prajwal from './Components/Prajwal';
+// import Prajwal from './Components/Prajwal';
 import { ThemeProvider } from './CustomHooks/ThemeContext';
 import './App.css';
 import { Provider } from 'react-redux';
