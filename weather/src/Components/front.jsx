@@ -1,9 +1,7 @@
 import React from "react";
 import "./Weather.css";
-// import style from "./common/front.module.css";
 import handlekeypress from "../Utils/keypress";
 import useGet from "../hooks/useGet";
-import { useTheme } from "../CustomHooks/ThemeContext";
 import {
   getEmptyCityError,
   getCityNotFoundError,
@@ -18,15 +16,16 @@ import {
   setHourlyForecast,
   setErrorMsg,
 } from "../Redux/weatherSlice";
+import { toggleTheme } from "../Redux/themeSlice"; 
 import { FaSearch } from "react-icons/fa";
 import ToggleSwitch from "./common/ToggleSwitch";
 
-const front = ({ onToggle }) => {
+const Front = ({ onToggle }) => {
   const apiKey = "05016ee12b542724dfab9e2d113a601a";
   const { get } = useGet();
-  const { theme, toggleTheme } = useTheme();
   const dispatch = useDispatch();
   const { city, weather, hourlyForecast, errorMsg } = useSelector((state) => state.weather);
+  const { theme } = useSelector((state) => state.theme); 
 
   const fetchWeather = async () => {
     if (!city.trim()) {
@@ -66,22 +65,18 @@ const front = ({ onToggle }) => {
     <div
       className="flex-col"
       style={{
-        backgroundColor: theme === "dark" ? "#333" : "#f0f0f0",
-        color: theme === "dark" ? "white" : "#333",
-        // height: "100vh",
-        // width: "100vw",
+        backgroundColor: theme === "dark" ? "#FF0000" : "#f0f0f0",
+        color: theme === "dark" ? "white" : "#",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
       }}
     >
-      {/* <ToggleSwitch isChecked={theme === "light"} onToggle={toggleTheme} onClick={onToggle} />
-       */}
       <div className="absolute top-20 right-150 z-50">
         <ToggleSwitch
           isChecked={theme === "light"}
           onToggle={() => {
-            toggleTheme();
+            dispatch(toggleTheme());
             onToggle();
           }}
         />
@@ -91,28 +86,28 @@ const front = ({ onToggle }) => {
         <div
           className={`Weatherwrapper ${theme}`}
           style={{
-            backgroundColor: theme === "light" ? "dark" : "light",
+            backgroundColor: theme === "light" ? "white" : "black", 
+            
           }}
         >
           <div className="h1div">
             <h1>P-Weather App</h1>
           </div>
-          <div className="inputbox relative w-full flex  justify-center items-center  h-20">
+          <div className="inputbox relative w-full flex justify-center items-center h-20">
             <input
               type="text"
               placeholder="Search here..."
-              className="inputfield  "
+              className="inputfield"
               value={city}
               onChange={(e) => dispatch(setCity(e.target.value))}
               onKeyDown={(e) => handlekeypress(e, fetchWeather)}
             />
             <button
-              className="absolute right-1  text-gray-500"
+              className="absolute right-1 text-gray-500"
               onClick={fetchWeather}
             >
-              <FaSearch size={14} className="w-full  h-10 " />
+              <FaSearch size={14} className="w-full h-10" />
             </button>
-            {/* <button onClick={toggleTheme}>Toggle Theme</button> */}
           </div>
 
           {errorMsg && <p className="error">{errorMsg}</p>}
@@ -173,4 +168,4 @@ const front = ({ onToggle }) => {
   );
 };
 
-export default front;
+export default Front;

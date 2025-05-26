@@ -5,3 +5,17 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root.light{
+ --background-color: #ffffff;
+  --text-color: #000000;
+}
+:root.dark {
+  --text-color: #ffffff;
+--background-color:#1a1a1a;
+}
+:root {
+  --button-color: #008000;
+  --button-bg: #006400;
+  --button-hover-bg: rgb(72, 111, 72);
+  --border-color: gray;
+  --error-color: red;}
