@@ -22,13 +22,11 @@ import { FaSearch } from "react-icons/fa";
 import ToggleSwitch from "./common/ToggleSwitch";
 
 const front = ({ onToggle }) => {
-  const apiKey = "5469227a3914b20e27b9c0e78c601adf";
+  const apiKey = "05016ee12b542724dfab9e2d113a601a";
   const { get } = useGet();
   const { theme, toggleTheme } = useTheme();
   const dispatch = useDispatch();
-  const { city, weather, hourlyForecast, errorMsg } = useSelector(
-    (state) => state.weather
-  );
+  const { city, weather, hourlyForecast, errorMsg } = useSelector((state) => state.weather);
 
   const fetchWeather = async () => {
     if (!city.trim()) {
@@ -70,8 +68,8 @@ const front = ({ onToggle }) => {
       style={{
         backgroundColor: theme === "dark" ? "#333" : "#f0f0f0",
         color: theme === "dark" ? "white" : "#333",
-        height: "100vh",
-        width: "100vw",
+        // height: "100vh",
+        // width: "100vw",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -79,16 +77,15 @@ const front = ({ onToggle }) => {
     >
       {/* <ToggleSwitch isChecked={theme === "light"} onToggle={toggleTheme} onClick={onToggle} />
        */}
-        <div className="absolute top-20 right-150 z-50">
-
-      <ToggleSwitch
-        isChecked={theme === "light"}
-        onToggle={() => {
-          toggleTheme();
-          onToggle();
-        }}
+      <div className="absolute top-20 right-150 z-50">
+        <ToggleSwitch
+          isChecked={theme === "light"}
+          onToggle={() => {
+            toggleTheme();
+            onToggle();
+          }}
         />
-        </div>
+      </div>
 
       <div className="Weather absolute top-60">
         <div
