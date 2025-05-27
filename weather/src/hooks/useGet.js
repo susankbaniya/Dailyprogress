@@ -2,28 +2,17 @@
 import axios from "axios";
 import { useState } from "react";
 
-//async Function to handle asynchronous api requests
-// export const useGet = async (url, params = {}) => {
-//   try {
-//     const response = await axios.get(url, { params }); //sends a get request to the url
-//     return { data: response.data, error: null };
-//   } catch (error) {
-//     return { data: null, error: error.message || "An error occurred" };
-//   }
-// };
-
-
 const useGet = () => {
   const [error, setError] = useState(null);
 
   const get = async (url, config = {}) => {
     try {
       const response = await axios.get(url, config);
-      setError(null); 
+      setError(null);
       return response.data;
     } catch (err) {
-      setError(err); 
-      throw err;      
+      setError(err);
+      throw err;
     }
   };
 

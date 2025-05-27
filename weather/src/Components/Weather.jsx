@@ -1,7 +1,8 @@
 import React from "react";
 import "./Weather.css";
-import { handlekeypress } from "../Utils/handlekeypresss";
-import useGet from "../CustomHooks/UseGet";
+import { handleKeyPress } from "../Utils/handleKeyPress";
+import useGet from "../hooks/useGet";
+// import { useTheme } from "../CustomHooks/ThemeContext";
 import {
   getEmptyCityError,
   getCityNotFoundError,
@@ -16,17 +17,25 @@ import {
   setHourlyForecast,
   setErrorMsg,
 } from "../Redux/weatherSlice";
-import { toggleTheme } from "../Redux/themeSlice"; 
 import ToggleSwitch from "./common/ToggleSwitch";
+
+// const Weather = ({ onToggle }) => {
+//   const apiKey = "5469227a3914b20e27b9c0e78c601adf";
+//   const { get, error } = useGet();
+//   const { theme, toggleTheme } = useTheme();
+//   const dispatch = useDispatch();
+//   const { city, weather, hourlyForecast, errorMsg } = useSelector(
+//     (state) => state.weather
+//   );
 
 const Weather = ({ onToggle }) => {
   const apiKey = "5469227a3914b20e27b9c0e78c601adf";
-  const { get, error } = useGet();
+  const { get } = useGet();
   const dispatch = useDispatch();
   const { city, weather, hourlyForecast, errorMsg } = useSelector(
     (state) => state.weather
   );
-  const { theme } = useSelector((state) => state.theme); 
+  const theme = useSelector((state) => state.theme.mode);
 
   const fetchWeather = async () => {
     if (!city.trim()) {
@@ -63,35 +72,14 @@ const Weather = ({ onToggle }) => {
   };
 
   return (
-    <div
-      className="flex flex-col relative"
-      style={{
-        backgroundColor: theme === "light" ? "#f0f0f0" : "#1a1a1a",
-        color: theme === "light" ? "#333" : "white",
-        height: "100vh",
-        width: "100vw",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-start",
-        paddingTop: "3rem",
-      }}
-    >
-      <div className="absolute top-20 right-150 z-50">
-        <ToggleSwitch
-          isChecked={theme === "light"}
-          onToggle={() => {
-            dispatch(toggleTheme()); 
-            onToggle();
-          }}
-        />
+    <div className="app-container">
+      <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50">
+        <ToggleSwitch onToggle={onToggle} />
       </div>
 
       <div className="Weather absolute top-60">
         <div
-          className={`Weatherwrapper ${theme}`}
-          style={{
-            backgroundColor: theme === "light" ? "#ff0000" : "black", 
-          }}
+          className="Weatherwrapper"
         >
           <div className="h1div">
             <h1>S-Weather App</h1>
@@ -103,9 +91,10 @@ const Weather = ({ onToggle }) => {
               className="inputfield"
               value={city}
               onChange={(e) => dispatch(setCity(e.target.value))}
-              onKeyDown={(e) => handlekeypress(e, fetchWeather)}
+              onKeyDown={(e) => handleKeyPress(e, fetchWeather)}
             />
             <button onClick={fetchWeather}>Search</button>
+            {/* <button onClick={toggleTheme}>Toggle Theme</button> */}
           </div>
 
           {errorMsg && <p className="error">{errorMsg}</p>}
