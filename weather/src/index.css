@@ -1,21 +1,58 @@
 @import "tailwindcss";
 
-*{
-  margin:0;
+:root {
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --primary-color: #2196f3;
+  --card-background: #f8f9fa;
+  --input-background: #ffffff;
+  --button-text: #ffffff;
+  --error-color: #dc3545;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] {
+  --background-color: #1a1a1a;
+  --text-color: #ffffff;
+  --primary-color: #90caf9;
+  --card-background: #2d2d2d;
+  --input-background: #373737;
+  --button-text: #1a1a1a;
+  --error-color: #ff5252;
+  --card-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+}
+
+* {
+  margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: background-color 0.3s ease;
 }
-:root.light{
- --background-color: #ffffff;
-  --text-color: #000000;
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
-:root.dark {
-  --text-color: #ffffff;
---background-color:#1a1a1a;
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-:root {
-  --button-color: #008000;
-  --button-bg: #006400;
-  --button-hover-bg: rgb(72, 111, 72);
-  --border-color: gray;
-  --error-color: red;}
+
+.Weatherwrapper {
+  background-color: var(--card-background);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  width: 500px;
+  margin: 2rem auto;
+}
+
+
+
+
+
+
+
