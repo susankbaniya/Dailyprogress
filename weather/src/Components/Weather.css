@@ -28,7 +28,7 @@ body {
 
 h1 {
   margin-top: 40px;
-  color: green;
+  color: var(--button-color);
   margin-bottom: 20px;
   font-size: 50px;
   font-weight: 700;
@@ -41,11 +41,11 @@ h1 {
   border: 1px gray;
   font-size: 24px;
   border-radius: 40px;
-  border: 1px solid gray;
+  border: 1px solid var(--border-color);
 }
 /* Weather.css */
 .inputfield:hover {
-  border: 1px solid green;
+  border: 1px solid var(--primary-color);
 }
 
 .inputbox {
@@ -58,7 +58,7 @@ h1 {
 button {
   width: 80px;
   height: 60px;
-  background-color: darkgreen;
+  background-color:var(--button-bg);
   outline: none;
   border: none;
   border-radius: 40px;
@@ -95,7 +95,7 @@ button:hover {
   justify-content: space-around;
 }
 .error {
-  color: red;
+  color:var(--error-color);
   margin-top: 20px;
   font-size: 25px;
   text-align: center;
